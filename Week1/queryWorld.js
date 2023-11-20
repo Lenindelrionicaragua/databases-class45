@@ -45,52 +45,82 @@ const query10 = "SELECT SUM(Population) AS worldPopulation FROM country";
 // Execute queries
 connection.query(query1, (error, results) => {
   if (error) throw error;
-  console.log("Question 1:", results);
+  console.log("Question 1:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query2, (error, results) => {
   if (error) throw error;
-  console.log("Question 2:", results);
+  console.log("Question 2:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query3, (error, results) => {
   if (error) throw error;
-  console.log("Question 3:", results);
+  console.log("Question 3:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query4, (error, results) => {
   if (error) throw error;
-  console.log("Question 4:", results);
+  console.log("Question 4:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query5, (error, results) => {
   if (error) throw error;
-  console.log("Question 5:", results);
+  console.log("Question 5:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query6, (error, results) => {
   if (error) throw error;
-  console.log("Question 6:", results);
+  console.log("Question 6:");
+  results.forEach((row) => {
+    console.log(row.Name);
+  });
 });
 
 connection.query(query7, (error, results) => {
   if (error) throw error;
-  console.log("Question 7:", results);
+  console.log("Question 7:");
+  results.forEach((row) => {
+    console.log(row.Population);
+  });
 });
 
 connection.query(query8, (error, results) => {
   if (error) throw error;
-  console.log("Question 8:", results);
+  console.log("Question 8:");
+  results.forEach((row) => {
+    console.log(row);
+  });
 });
 
 connection.query(query9, (error, results) => {
   if (error) throw error;
-  console.log("Question 9:", results);
+  console.log("Question 9:");
+  results.forEach((row) => {
+    console.log(row);
+  });
 });
 
 connection.query(query10, (error, results) => {
   if (error) throw error;
-  console.log("Question 10:", results);
+  console.log("Question 10:");
+  results.forEach((row) => {
+    console.log(row.worldPopulation);
+  });
 });
 
 // Close the connection
