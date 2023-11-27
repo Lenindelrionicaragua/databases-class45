@@ -1,19 +1,19 @@
-//import the mysql package
+// Importa el paquete mysql
 const mysql = require("mysql");
 
-// Create a connection to the MySQL server
+// Crea una conexión al servidor MySQL
 const connection = mysql.createConnection({
   host: "localhost",
   user: "hyfuser",
-  password: "1111",
+  password: "hyfpassword",
 });
 
-// Connect to the MySQL server
+// Conéctate al servidor MySQL
 connection.connect((err) => {
   if (err) throw err;
   console.log("Connected to MySQL server");
 
-  // Define SQL queries in an array
+  // Define las consultas SQL en un array
   const queries = [
     "CREATE DATABASE IF NOT EXISTS meetup",
     "USE meetup",
@@ -21,7 +21,7 @@ connection.connect((err) => {
       CREATE TABLE IF NOT EXISTS Invitee (
         invitee_no INT AUTO_INCREMENT PRIMARY KEY,
         invitee_name VARCHAR(255) NOT NULL,
-        invited_by INT,
+        invited_by INT NULL,
         FOREIGN KEY (invited_by) REFERENCES Invitee(invitee_no) ON DELETE SET NULL
       )
     `,
@@ -42,17 +42,17 @@ connection.connect((err) => {
         FOREIGN KEY (room_no) REFERENCES Room(room_no)
       )
     `,
-    // Insert 5 rows into `Invitee` table
+    // Inserta 5 filas en la tabla `Invitee`
     `
       INSERT INTO Invitee (invitee_name, invited_by)
       VALUES
-        ('John Doe', 2),
-        ('Jane Smith', 3),
-        ('Bob Johnson', 4),
-        ('Alice Brown', 5),
-        ('Charlie Green', 1)
+        ('John Doe', NULL),
+        ('Jane Smith', NULL),
+        ('Bob Johnson', NULL),
+        ('Alice Brown', NULL),
+        ('Charlie Green', NULL)
     `,
-    // Insert 5 rows into `Room` table
+    // Inserta 5 filas en la tabla `Room`
     `
       INSERT INTO Room (room_name, floor_number)
       VALUES
@@ -62,7 +62,7 @@ connection.connect((err) => {
         ('Board Room D', 3),
         ('Training Room E', 2)
     `,
-    // Insert 5 rows into `Meeting` table
+    // Inserta 5 filas en la tabla `Meeting`
     `
       INSERT INTO Meeting (meeting_title, starting_time, ending_time, room_no)
       VALUES
@@ -74,7 +74,7 @@ connection.connect((err) => {
     `,
   ];
 
-  // Execute each query in the array
+  // Ejecuta cada consulta en el array
   queries.forEach((query) => {
     connection.query(query, (err, result) => {
       if (err) throw err;
@@ -82,7 +82,7 @@ connection.connect((err) => {
     });
   });
 
-  // Close the MySQL connection
+  // Cierra la conexión MySQL
   connection.end((err) => {
     if (err) throw err;
     console.log("Connection closed");
