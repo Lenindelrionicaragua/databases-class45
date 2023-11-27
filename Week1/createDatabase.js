@@ -15,14 +15,14 @@ connection.connect((err) => {
 
   // Define SQL queries in an array
   const queries = [
-    'CREATE DATABASE IF NOT EXISTS meetup',
-    'USE meetup',
+    "CREATE DATABASE IF NOT EXISTS meetup",
+    "USE meetup",
     `
       CREATE TABLE IF NOT EXISTS Invitee (
         invitee_no INT AUTO_INCREMENT PRIMARY KEY,
         invitee_name VARCHAR(255) NOT NULL,
         invited_by INT,
-        FOREIGN KEY (invited_by) REFERENCES Invitee(invitee_no)
+        FOREIGN KEY (invited_by) REFERENCES Invitee(invitee_no) ON DELETE SET NULL
       )
     `,
     `
