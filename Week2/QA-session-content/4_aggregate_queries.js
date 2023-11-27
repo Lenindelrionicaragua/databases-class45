@@ -14,42 +14,43 @@ connection.connect((err) => {
   }
   console.log("Successfully connected to the database");
 
-  // Query 1: All research papers and the number of authors that wrote that paper
+  // Query 1: Retrieves the research paper title and counts the number of authors for each paper.
   const query1 = `
-    SELECT rp.paper_title, COUNT(rp.author_id) AS author_count
-    FROM research_Papers rp
-    GROUP BY rp.paper_id;
-  `;
+  SELECT rp.paper_title, COUNT(rp.author_id) AS author_count
+  FROM research_Papers rp
+  GROUP BY rp.paper_id;
+`;
 
-  // Query 2: Sum of the research papers published by all female authors
+  // Query 2: Calculates the total number of research papers published by female authors.
   const query2 = `
-    SELECT COUNT(rp.paper_id) AS total_papers
-    FROM research_Papers rp
-    JOIN authors a ON rp.author_id = a.author_id
-    WHERE a.gender = 'Female';
-  `;
+  SELECT COUNT(rp.paper_id) AS total_papers
+  FROM research_papers rp
+  JOIN paper_authors pa ON rp.paper_id = pa.paper_id
+  JOIN authors a ON pa.author_id = a.author_id
+  WHERE a.gender = 'F';
+`;
 
-  // Query 3: Average h-index of all authors per university
+  // Query 3: Calculates the average h-index of all authors per university.
   const query3 = `
-    SELECT a.university, AVG(a.h_index) AS avg_h_index
-    FROM authors a
-    GROUP BY a.university;
-  `;
+  SELECT a.university, AVG(a.h_index) AS avg_h_index
+  FROM authors a
+  GROUP BY a.university;
+`;
 
-  // Query 4: Sum of the research papers of the authors per university
+  // Query 4: Calculates the total number of research papers by authors per university, including universities with no research papers.
   const query4 = `
-    SELECT a.university, COUNT(rp.paper_id) AS total_papers
-    FROM authors a
-    LEFT JOIN research_Papers rp ON a.author_id = rp.author_id
-    GROUP BY a.university;
-  `;
+  SELECT a.university, COUNT(rp.paper_id) AS total_papers
+  FROM authors a
+  LEFT JOIN research_Papers rp ON a.author_id = rp.author_id
+  GROUP BY a.university;
+`;
 
-  // Query 5: Minimum and maximum h-index of all authors per university
+  // Query 5: Retrieves the minimum and maximum h-index of all authors per university.
   const query5 = `
-    SELECT a.university, MIN(a.h_index) AS min_h_index, MAX(a.h_index) AS max_h_index
-    FROM authors a
-    GROUP BY a.university;
-  `;
+  SELECT a.university, MIN(a.h_index) AS min_h_index, MAX(a.h_index) AS max_h_index
+  FROM authors a
+  GROUP BY a.university;
+`;
 
   // Execute queries
   connection.query(query1, (err, results) => {

@@ -1,35 +1,47 @@
 const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "hyfuser",
-  password: "1111",
-  database: "authors_table",
-  port: 3306,
-});
+async function createAuthorsTable() {
+  const connection = mysql.createConnection({
+    host: "localhost",
+    user: "hyfuser",
+    password: "hyfpassword",
+    database: "authors_table",
+    port: 3306,
+  });
 
-// Connect to the database
-connection.connect(async (err) => {
   try {
-    if (err) {
-      throw new Error("Error connecting to the database: " + err);
-    }
+    const createDatabaseQuery = `
+      CREATE DATABASE IF NOT EXISTS authors_table;
+    `;
 
-    console.log("Successfully connected to the database");
-
-    // Create the authors table if it doesn't exist
-    const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS authors (
-      author_id INT PRIMARY KEY AUTO_INCREMENT,
-      author_name VARCHAR(255),
-      university VARCHAR(255),
-      date_of_birth DATE,
-      h_index INT,
-      gender VARCHAR(10),
-      mentor INT,
-      CONSTRAINT fk_mentor FOREIGN KEY (mentor) REFERENCES authors(author_id)
+    await queryAsync(
+      connection,
+      createDatabaseQuery,
+      "Database created or already exists"
     );
-  `;
+
+    const useDatabaseQuery = `
+      USE authors_table;
+    `;
+
+    await queryAsync(
+      connection,
+      useDatabaseQuery,
+      "Using authors_table database"
+    );
+
+    // Create table authors
+    const createTableQuery = `
+      CREATE TABLE IF NOT EXISTS authors (
+        author_id INT PRIMARY KEY AUTO_INCREMENT,
+        author_name VARCHAR(255),
+        university VARCHAR(255),
+        date_of_birth DATE,
+        h_index INT,
+        gender ENUM ('M', 'F'),
+        CONSTRAINT fk_mentor FOREIGN KEY (mentor) REFERENCES authors(author_id)
+      );
+    `;
 
     await queryAsync(
       connection,
@@ -66,7 +78,7 @@ connection.connect(async (err) => {
     // Close the database connection
     connection.end();
   }
-});
+}
 
 // Function to execute queries with promise
 function queryAsync(connection, sql, successMessage) {
@@ -81,3 +93,14 @@ function queryAsync(connection, sql, successMessage) {
     });
   });
 }
+
+async function run() {
+  try {
+    await createAuthorsTable();
+    console.log("Table creation completed successfully");
+  } catch (error) {
+    console.error("Error creating table:", error);
+  }
+}
+
+run();
