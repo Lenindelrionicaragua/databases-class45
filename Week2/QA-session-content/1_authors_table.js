@@ -30,7 +30,7 @@ async function createAuthorsTable() {
       "Using authors_table database"
     );
 
-    // Create table authors
+    // Create table author
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS authors (
         author_id INT PRIMARY KEY AUTO_INCREMENT,
