@@ -52,9 +52,14 @@ async function findEpisodesExercises(client) {
     const blackRiverEpisode = await database
       .collection("episodes")
       .findOne({ title: "BLACK RIVER" });
-    console.log(
-      `The season and episode number of the "BLACK RIVER" episode is S${blackRiverEpisode.season}E${blackRiverEpisode.episode}`
-    );
+
+    if (blackRiverEpisode) {
+      console.log(
+        `The season and episode number of the "BLACK RIVER" episode is S${blackRiverEpisode.season}E${blackRiverEpisode.episode}`
+      );
+    } else {
+      console.log("Episode not found");
+    }
 
     // Find all episode titles where Bob Ross painted a CLIFF
     const cliffEpisodes = await database
