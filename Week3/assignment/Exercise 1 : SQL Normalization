@@ -1,0 +1,15 @@
+    3.1. Exercise 1 : SQL Normalization
+
+    The manager of the dinner club would like to manage the information system that assists him to keep track of the dinners had by members. Because the manager is not an expert of Information Systems, (s)he uses the following table to store the information. Please help the manger by using the knowledge of database normal forms. Save all answers in a text file / MD file.
+
+    1 - What columns violate 1NF?
+
+        A: In this example table, I notice that the column food_code violates 1NF because each column should store a single value. In this case, up to three entities are combined in a single column. While I'm not entirely sure, a similar situation might occur with food_description, as a dish could have three types of categories. However, it would be better to handle this data in another table to avoid repeating descriptions.
+
+    2 - What entities do you recognize that could be extracted?
+
+        A: I believe we could also extract member_address, as it appears to be the least important information for this table in this context.
+
+    3 - Name all the tables and columns that would make a 3NF compliant solution.
+
+        A :Therefore, for food_description, I would create a separate table for members with their member_id, name, and address. Then, another table for dinner with dinner_id and dinner_date, a third table for venue with venue_code and venue_description, and finally, a last table for food with food_code and food_description.
