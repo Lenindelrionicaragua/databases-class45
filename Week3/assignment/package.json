@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^16.3.1",
+    "jslint": "^0.12.1",
     "mongodb": "^6.3.0",
     "mysql2": "^3.6.5"
   }
