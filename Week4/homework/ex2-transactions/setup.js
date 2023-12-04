@@ -44,5 +44,4 @@ async function setup() {
 
 module.exports = setup;
 
-// Call the setup function to initialize the database with sample data
 setup();
